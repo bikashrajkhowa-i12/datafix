@@ -1,0 +1,9 @@
+** Steps **
+
+*** npm install at root folder ***
+
+#1 The .env MONGODB_URI connection string without the database name. Pass your db name manually in connectMongoDb("database_name")
+
+#2 Import startjob() of index files from desired datafix folders to "datafix/index.js"
+
+#3 Run the index.js file to perform datafix.
