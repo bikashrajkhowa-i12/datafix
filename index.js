@@ -1,17 +1,21 @@
 require("dotenv").config();
-
+const { disconnectMongo } = require("./src/db/dbDisconnect");
 const startJob = require("./src/movies-app/index");
 
-async function main() {
+const main = async () => {
   console.log("Job started...");
+  let exitCode = 0;
 
-  await startJob();
-
-  console.log("Job ended!");
-  process.exit(0);
+  try {
+    await startJob();
+    console.log("Job ended!");
+  } catch (err) {
+    console.error("Job failed:", err);
+    exitCode = 1;
+  } finally {
+    await disconnectMongo();
+    process.exit(exitCode);
+  }
 }
 
-main().catch((err) => {
-  console.error("Job failed:", err);
-  process.exit(1);
-});
+main();
