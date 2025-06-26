@@ -1,6 +1,6 @@
 const path = require("path");
 
-const Movie = require("./models/Movie");
+const { mongo } = require("@bikashrajkhowa-i12/blackboxcore");
 
 const { mongoBulkInsert } = require("../db/helper");
 const generateCsv = require("../utils/generateCsv");
@@ -10,7 +10,7 @@ const tvShows = require("./json/tvShows.json");
 
 const insertMedia = async () => {
   const updatedRecords = [];
-
+  
   // Append movie data with type
   if (Array.isArray(movies) && movies.length > 0) {
     movies.forEach((e) => {
@@ -36,13 +36,13 @@ const insertMedia = async () => {
   try {
     const { status, inserted } = await mongoBulkInsert({
       db: "movies_database",
-      model: Movie,
+      model: mongo.Movie,
       data: updatedRecords,
       duplicationCheck: ["id", "type"],
     });
 
     if (status) {
-      const collectionName = Movie.collection.name;
+      const collectionName = mongo.Movie.collection.name;
       const filePath = path.join(__dirname, "../movies-app/logs");
       const fileName = `INSERT-${collectionName}-${new Date()
         .toISOString()

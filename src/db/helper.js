@@ -10,7 +10,7 @@ const mongoBulkInsert = async ({ db, model, data, duplicationCheck }) => {
     }
 
     await connectMongoDB(db);
-    console.log("🔍 Checking for duplicates...");
+    console.log("Checking for duplicates...");
 
     const processedKeys = new Set();
     const newRecords = [];
