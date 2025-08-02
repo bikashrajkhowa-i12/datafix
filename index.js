@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { disconnectMongo } = require("./src/db/dbDisconnect");
-const startJob = require("./src/movies-app/index");
+// const startJob = require("./src/movies-app/index");
+const startJob = require("./src/blogs/football-blog/index");
 
 const main = async () => {
   console.log("Job started...");
@@ -16,6 +17,6 @@ const main = async () => {
     await disconnectMongo();
     process.exit(exitCode);
   }
-}
+};
 
 main();

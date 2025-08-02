@@ -15,7 +15,7 @@ const genreMappingConfig = async () => {
       }, {});
 
     const configObj = {
-      name: "GENRE_MAPPING_CONFIG",
+      name: "GENRE_MAPPING_CONFIG_demo",
       description: "This config has genre-ids mapped to genre-names",
       configs: {
         movie: toIdNameMap(movieGenres),
@@ -27,12 +27,10 @@ const genreMappingConfig = async () => {
     };
 
     await createConfig(database, collection, configObj);
-    console.log("Genre config inserted successfully!");
   } catch (error) {
     console.error("Error inserting genre config:", error);
     throw error;
   }
 };
-
 
 module.exports = genreMappingConfig;

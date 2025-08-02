@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const { connectMongoDB } = require("./dbConnection");
 
-const initMongo = async (dbName, collectionName, schemaModel) => {
+const initMongo = async (dbName, collectionName, schema) => {
   try {
     // Connect directly to the target DB
-    await connectMongoDB(dbName);
-    await createCollection(collectionName, schemaModel);
+    const conn = await connectMongoDB(dbName);
+    await createCollection(conn, collectionName, schema);
   } catch (error) {
     console.error("❌ Error in initMongo:", error);
     throw error;
@@ -14,20 +14,24 @@ const initMongo = async (dbName, collectionName, schemaModel) => {
   }
 };
 
-const createCollection = async (collectionName, schemaModel) => {
+const createCollection = async (conn, collectionName, schema) => {
   try {
-    const db = mongoose.connection.db;
-
     console.log(`\n🛠️ Creating collection: ${collectionName}\n`);
 
-    if (schemaModel) {
-      const model = new schemaModel({
+    if (schema) {
+      const TempModel =
+        conn.models[collectionName] ||
+        conn.model(collectionName, schema, collectionName);
+
+      const dummy = new TempModel({
         title: "_init_dummy",
-        timeStamp: `${Date.now()}`,
-      }); //
-      await model.save();
-      await model.deleteMany({ title: "_init_dummy" });
+        timeStamp: Date.now(),
+      });
+
+      await dummy.save();
+      await TempModel.deleteMany({ title: "_init_dummy" });
     } else {
+      const db = conn.db;
       const collection = db.collection(collectionName);
       await collection.insertOne({ title: "_init_dummy" });
       await collection.deleteOne({ title: "_init_dummy" });

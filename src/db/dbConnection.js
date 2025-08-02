@@ -6,16 +6,20 @@ const connectMongoDB = async (database) => {
       ? `${process.env.MONGODB_URI}/${database}`
       : process.env.MONGODB_URI;
 
-    await mongoose.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose
+      .createConnection(connectionString, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .asPromise();
 
     console.log(
       `✅ MongoDB connected successfully!\nDatabase: ${
         database || "admin\n\n\n\n"
       }`
     );
+
+    return conn;
   } catch (error) {
     console.error("❌ MongoDB connection error:", error.message);
     process.exit(1);
