@@ -1,4 +1,3 @@
-const { FootballBlog } = require("@bikashrajkhowa-i12/blackboxcore").Mongo;
 const { mongoInsert } = require("../../db/helper");
 
 const insertBlog = async (conn, collection, schema) => {
@@ -24,41 +23,58 @@ const insertBlog = async (conn, collection, schema) => {
 };
 
 const insertObj = {
-  title:
-    "When Talent Travels: Bundesliga Stars Who Flopped in the Premier League",
-  slug: "bundesliga-stars-flopped-premier-league",
-  category: "transfer-news",
-  teams: [],
-  location: "England / Germany",
-  league: [{ type: "Premier League" }],
-  stadium: "",
-  tags: ["transfers", "bundesliga", "premier_league", "football_flops"],
-  content_type: "markdown",
+  title: "Amorim Sets Ambitious 20‑Year Vision at Manchester United",
+  slug: "amorim-20-year-united-stay-vision",
+  category: "club-update",
+  teams: ["Manchester United"],
+  location: "Manchester, England",
+  published_date: new Date("2025-08-03 18:58:23"),
+  published: true,
+  league: ["Premier League"],
+  stadium: "Old Trafford",
+  tags: [
+    "Amorim",
+    "Manchester United",
+    "long‑term plan",
+    "managerial ambition",
+  ],
+  content_type: "plain",
+  preview:
+    "In a bold declaration during United’s 2025 pre‑season tour, manager Rúben Amorim laid out his ambition to remain at Manchester United for the next two decades. Fresh off a tumultuous first season marred by the club’s worst Premier League finish in over 50 years, Amorim insists he’s ready to reset and build a lasting legacy. With backing from co-owner Sir Jim Ratcliffe and a new culture taking root under his leadership, Amorim aims to recreate the long-term success that defined the Ferguson era. But fans and the board will judge based on results—and quickly.",
   content: {
     summary:
-      "Not every big move pays off. While the Bundesliga has long been a talent factory, several of its top exports failed to replicate their form after crossing over to England. From misplaced roles to poor tactical fits, these transfers show how tricky transitions can be.",
+      "Rúben Amorim has openly declared his goal to lead Manchester United for the next 20 years—a bold ambition for a club that has rarely offered managerial stability since Sir Alex Ferguson. Despite overseeing a disastrous debut campaign in which United finished 15th, Amorim says he has “used up all the credits” and is now ready to restart his project. With fresh recruits, a cultural overhaul, and personal commitment, he sees himself following in Ferguson’s footsteps—but he’s clear that results will ultimately determine his longevity.",
 
-    bundesliga_to_premier_league_flops:
-      "Timo Werner lit up Germany with RB Leipzig but failed to reach those heights at Chelsea, despite winning the Champions League. His finishing woes and lack of confidence stood out. Shinji Kagawa, brilliant under Klopp at Dortmund, never found his rhythm at Manchester United. Sebastian Haller, dominant at Eintracht Frankfurt, looked lost at West Ham before bouncing back elsewhere. Even Joëlinton struggled at Newcastle as a striker before being redefined as a midfielder.",
+    long_term_commitment:
+      "In an interview during United’s U.S. pre‑season tour, Amorim said calmly: “I want to stay. I want to stay 20 [years]. That is my goal and I truly believe in that.” He explained that, while many view the statement as overly ambitious, he feels Manchester United’s history, fanbase, and financial resources give him a platform for long-term success. Having waited five years to join United, he says failure isn’t an option.",
 
-    factors_behind_the_downfall:
-      "Several patterns emerge: tactical mismatches, positional confusion, and the Premier League’s physicality all played a role. Havertz and Sancho, both technically gifted, found themselves shuffling positions under managers unsure of how to best use them. Injuries also held back players like Pulisic and Keita, who showed flashes but couldn’t stay consistent. Meanwhile, success stories like De Bruyne or Haaland thrived because they landed in systems that maximized their strengths.",
+    tactical_and_cultural_reset:
+      "Amorim has shifted United’s tone dramatically. He has implemented a disciplined structure, sidelining players who he felt didn’t fit his vision and promoting a leadership group centered on Bruno Fernandes, Luke Shaw, and others. He introduced positional overloads and a flexible 3‑4‑2‑1 system, prioritizing possession, accountability, and emotional maturity. United’s worst-ever finish prompted him to take a firm stand; now, with signings like Bryan Mbeumo and Matheus Cunha, he looks to translate summer optimism into results.",
 
-    lessons_for_future_transfers:
-      "The takeaway is clear: pedigree alone isn’t enough. Scouting departments must go beyond highlight reels and consider fit, role clarity, and mental resilience. With more Bundesliga stars likely to cross the channel, clubs would be wise to study both the flops and the few who flourished.",
+    support_and_scrutiny:
+      "Co‑owner Sir Jim Ratcliffe has publicly endorsed Amorim’s long‑term appointment, calling him “outstanding” and saying he expects him to stay at United “for a long time.” But the pressure is relentless—supporters, pundits, and the board expect tangible improvement after a campaign of embarrassment. Amorim has even publicly apologized to fans and urged unity after United’s 15th‑place finish and Europa League final loss.",
+
+    final_thought:
+      "The ambition is clear: Amorim wants to be remembered alongside United greats who defined club identity for decades. Yet in modern football, results are non‑negotiable. Can Amorim turn culture into silverware quickly enough to earn the years he seeks? The 2025‑26 campaign will be the true test of whether he’s laying groundwork for legacy—or running out of credits.",
   },
   sources: [
     {
-      name: "PlanetSport",
-      url: "https://www.planetsport.com/soccer/news/10-bundesliga-players-who-flopped-premier-league-8-who-were-quite-good",
+      ESPN: "https://www.espn.com/soccer/story/_/id/45889899/ruben-amorim-wants-20-year-man-united-stay-my-goal",
     },
     {
-      name: "OneFootball",
-      url: "https://onefootball.com/en/news/the-biggest-bundesliga-flops-to-arrive-in-the-premier-league-ft-sancho-werner-havertz-38162973",
+      "Sky Sports":
+        "https://www.skysports.com/football/news/11095/13406202/ruben-amorim-manchester-united-head-coach-reveals-he-wants-to-stay-at-old-trafford-for-next-20-years",
     },
     {
-      name: "Goal.com",
-      url: "https://www.goal.com/en-in/lists/de-bruyne-schweinsteiger-hits-flops-bundesliga-premier-league/blt8880b50d795b779b",
+      "The Guardian":
+        "https://www.theguardian.com/football/2025/jul/31/amorim-offers-rasmus-hojlund-no-guarantees-over-manchester-united-future",
+    },
+    {
+      ESPN: "https://www.espn.com/soccer/story/_/id/45857008/luke-shaw-ruben-amorim-manchester-united-preseason-tour",
+    },
+    {
+      Reuters:
+        "https://www.reuters.com/sports/soccer/manchester-united-name-portuguese-amorim-head-coach-2024-11-01/",
     },
   ],
 };
