@@ -30,6 +30,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      logged_in: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      status: {
+        type: Sequelize.ENUM("active", "inactive", "hold"),
+        allowNull: false,
+        defaultValue: "active",
+      },
       avatar_url: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -40,13 +50,13 @@ module.exports = {
         defaultValue: "user",
       },
       created_at: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW"),
       },
       updated_at: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW"),
       },
     });
@@ -55,9 +65,12 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("users");
 
-    // Cleanup ENUM types if needed (Postgres)
+    // Cleanup ENUM types
     await queryInterface.sequelize.query(
       'DROP TYPE IF EXISTS "enum_users_provider";'
+    );
+    await queryInterface.sequelize.query(
+      'DROP TYPE IF EXISTS "enum_users_status";'
     );
     await queryInterface.sequelize.query(
       'DROP TYPE IF EXISTS "enum_users_role";'
