@@ -4,9 +4,9 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("users", {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       email: {
         type: Sequelize.STRING,
@@ -15,7 +15,7 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: true, // null if login via Google/GitHub
+        allowNull: true, // null if login via Google/Facebook
       },
       provider: {
         type: Sequelize.ENUM("local", "google", "facebook"),
@@ -24,16 +24,15 @@ module.exports = {
       },
       provider_id: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true, // external provider user id
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      logged_in: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
+      last_login: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
       status: {
         type: Sequelize.ENUM("active", "inactive", "hold"),
@@ -60,12 +59,15 @@ module.exports = {
         defaultValue: Sequelize.fn("NOW"),
       },
     });
+
+    // Start IDs from 1001
+    await queryInterface.sequelize.query(
+      "ALTER SEQUENCE users_id_seq RESTART WITH 1001;"
+    );
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("users");
-
-    // Cleanup ENUM types
     await queryInterface.sequelize.query(
       'DROP TYPE IF EXISTS "enum_users_provider";'
     );
