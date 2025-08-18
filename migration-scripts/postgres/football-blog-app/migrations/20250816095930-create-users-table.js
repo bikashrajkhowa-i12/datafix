@@ -28,6 +28,11 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: true,
+      },
+      username: {
+        type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
       },
       last_login: {
